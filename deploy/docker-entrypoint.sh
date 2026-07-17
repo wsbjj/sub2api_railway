@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
+# Railway injects PORT, while Sub2API reads SERVER_PORT. Keep an explicitly
+# configured SERVER_PORT authoritative for Docker Compose and other runtimes.
+if [ -n "${PORT:-}" ] && [ -z "${SERVER_PORT:-}" ]; then
+    export SERVER_PORT="$PORT"
+fi
+
 # Fix data directory permissions when running as root.
 # Docker named volumes / host bind-mounts may be owned by root,
 # preventing the non-root sub2api user from writing files.

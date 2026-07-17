@@ -236,6 +236,10 @@ Nginx 默认会丢弃名称中含下划线的请求头（如 `session_id`），�
 
 ## 部署方式
 
+### Railway 部署
+
+Railway 专用配置、PostgreSQL/Redis 引用变量及 Volume 挂载步骤见 [Railway 部署指南](docs/RAILWAY_DEPLOY_CN.md)。
+
 ### 方式一：脚本安装（推荐）
 
 一键安装脚本，自动从 GitHub Releases 下载预编译的二进制文件。
