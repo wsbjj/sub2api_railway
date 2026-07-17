@@ -19,7 +19,8 @@ Volume 用于保存首次启动生成的 `config.yaml` 等运行数据。没有 
 AUTO_SETUP=true
 SERVER_HOST=0.0.0.0
 SERVER_MODE=release
-SERVER_TRUSTED_PROXIES=100.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+SERVER_TRUSTED_PROXIES=100.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,fc00::/7,fe80::/10,::1/128
+SECURITY_TRUST_FORWARDED_IP_FOR_API_KEY_ACL=true
 DATA_DIR=/app/data
 TZ=Asia/Shanghai
 
@@ -44,7 +45,7 @@ TOTP_ENCRYPTION_KEY=请填写32字节的随机密钥
 
 不要手动设置 `PORT` 或 `SERVER_PORT`。Railway 会注入 `PORT`，本分支的入口脚本会自动适配。
 
-`SERVER_TRUSTED_PROXIES` 用于信任 Railway 的反向代理网段，使 Gin 从 Railway 提供的转发头中稳定解析真实客户端 IP。缺少该变量时，会话绑定可能把代理出口变化误判为网络指纹变化，导致登录后立即返回 `SESSION_BINDING_MISMATCH`。
+`SERVER_TRUSTED_PROXIES` 用于信任 Railway 的 IPv4 和 IPv6 反向代理网段。`SECURITY_TRUST_FORWARDED_IP_FOR_API_KEY_ACL=true` 让会话绑定和 API Key IP 限制统一采用 Railway 边缘提供的真实客户端 IP。缺少任一配置时，会话绑定可能把转发链中的代理地址变化误判为网络指纹变化，导致登录后立即返回 `SESSION_BINDING_MISMATCH`。
 
 可使用以下命令在本机生成两个独立密钥：
 
