@@ -4,6 +4,7 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -927,6 +928,21 @@ func TestGetServerAddressFromEnv(t *testing.T) {
 	address := GetServerAddress()
 	if address != "127.0.0.1:9090" {
 		t.Fatalf("GetServerAddress() = %q", address)
+	}
+}
+
+func TestLoadTrustedProxiesFromEnv(t *testing.T) {
+	resetViperWithJWTSecret(t)
+	t.Setenv("SERVER_TRUSTED_PROXIES", "100.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16")
+
+	cfg, err := Load()
+	if err != nil {
+		t.Fatalf("Load() error: %v", err)
+	}
+
+	want := []string{"100.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"}
+	if !slices.Equal(cfg.Server.TrustedProxies, want) {
+		t.Fatalf("Server.TrustedProxies = %#v, want %#v", cfg.Server.TrustedProxies, want)
 	}
 }
 
