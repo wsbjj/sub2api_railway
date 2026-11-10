@@ -40,7 +40,7 @@ REDIS_ENABLE_TLS=false
 ADMIN_EMAIL=你的管理员邮箱
 ADMIN_PASSWORD=请设置强密码
 JWT_SECRET=请填写至少32字节的随机密钥
-TOTP_ENCRYPTION_KEY=请填写32字节的随机密钥
+TOTP_ENCRYPTION_KEY=请填写64位十六进制字符（即32字节）
 ```
 
 不要手动设置 `PORT` 或 `SERVER_PORT`。Railway 会注入 `PORT`，本分支的入口脚本会自动适配。
