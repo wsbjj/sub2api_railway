@@ -5,7 +5,7 @@
 ## 1. 创建服务
 
 1. 在 Railway 新建项目，选择 **Deploy from GitHub repo**。
-2. 选择仓库 `wsbjj/sub2api_railway`，部署分支选择 `codex/railway-deploy`。
+2. 选择仓库 `wsbjj/sub2api_railway`，部署分支选择 `railway`。
 3. 在项目中添加 **PostgreSQL** 和 **Redis** 服务。
 4. 给 Sub2API 服务创建一个 Volume，挂载路径设置为 `/app/data`。
 
